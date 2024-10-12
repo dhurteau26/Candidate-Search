@@ -19,7 +19,9 @@ const router = createBrowserRouter([
       },
       {
         path: '/SavedCandidates',
-        element: <SavedCandidates />,
+        element: <SavedCandidates currentCandidate={{ Name: '', Image: '', Location: '', Email: '', Company: '', Bio: '', Reject: false }} addToCandidateList={function (): void {
+          throw new Error('Function not implemented.');
+        } } />,
       },
     ],
   },
