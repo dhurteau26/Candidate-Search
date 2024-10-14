@@ -6,6 +6,6 @@ export default interface Candidate {
     readonly Email: string| null;
     readonly Company: string | null;
     readonly Bio: string | null;
-    readonly Reject: boolean | null;
+    readonly Reject?: boolean | null;
 
 }

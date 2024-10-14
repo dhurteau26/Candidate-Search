@@ -1,6 +1,6 @@
-import { FormEvent, useState } from 'react';
-import {  searchGithub, searchGithubUser } from '../api/API';
-import Candidate from '../interfaces/Candidate.interface';
+import { useEffect, type FormEvent, useState } from 'react';
+import { searchGithub,  searchGithubUser } from '../api/API';
+import type Candidate from '../interfaces/Candidate.interface';
 import SavedCandidates from './SavedCandidates';
 
 const CandidateSearch = () => {
@@ -16,6 +16,10 @@ const CandidateSearch = () => {
 
   const [searchInput, setSearchInput] = useState<string>('');
 
+  useEffect(() => {
+    searchGithub('userName'); // Replace 'defaultName' with an appropriate string argument if needed.
+  }, []);
+
   const addToCandidateList = () => {
     let parsedCandidatesToSearch: Candidate[] = [];
     const storedCandidatesToSearch = localStorage.getItem('candidatesToSearch');
@@ -26,16 +30,13 @@ const CandidateSearch = () => {
     localStorage.setItem('candidatesToSearch', JSON.stringify(parsedCandidatesToSearch))
   };
 
-  const searchForCandidateByName = async (event: FormEvent, name: string) => {
+  const searchForCandidateByName = async (event: FormEvent, userName: string) => {
     event.preventDefault();
     
-    const data: Candidate = await searchGithubUser(name);
-    const data2: Candidate = await searchGithub(name)
+    const data: Candidate = await searchGithubUser(userName);
+    
 
-    setCurrentCandidate({
-      ...data,
-      ...data2
-    });
+    setCurrentCandidate(data);
   };
   return(
   <>
